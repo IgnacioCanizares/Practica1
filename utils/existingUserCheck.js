@@ -10,7 +10,7 @@ const checkExistingValidatedEmail = async (req, res, next) => {
 
         if (existingUser) {
             return res.status(409).json({
-                error: 'Email already registered and verified'
+                error: 'Email ya registrado y verificado'
             });
         }
 

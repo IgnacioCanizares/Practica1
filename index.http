@@ -7,7 +7,7 @@ POST http://localhost:3001/api/user/register
 Content-Type: application/json
 
 {
-    "email": "try@example.com",
+    "email": "guest@example.com",
     "password": "password123"
 }
 
@@ -15,10 +15,10 @@ Content-Type: application/json
 
 PUT http://localhost:3001/api/user/validate
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDI4MjI4NjIsImV4cCI6MTc0MjkwOTI2Mn0.vE5k--yS4Geu2SkzxhUVtL4FhK5JXN5noD56v_XJYpY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTRjOGZmNTg0Y2Y1YzVkNWZiOTIiLCJpYXQiOjE3NDMzNDQ4NDAsImV4cCI6MTc0MzQzMTI0MH0.Vmz1B447yL56aVLk2-s1Ge8SNe9I2p3r4gKtUskI_M4
 
 {
-    "code": "438843"
+    "code": "578714"
 }
 
 ###
@@ -32,3 +32,106 @@ Content-Type: application/json
 }
 
 ###
+
+PUT http://localhost:3001/api/user/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDI5ODA3MjEsImV4cCI6MTc0MzA2NzEyMX0.f3w4UJHD6sFc98YhgqGNWlaDCcTk9G45n9j4aiNR1qs
+
+{
+    "name": "Ignacio",
+    "surname": "Canizares",
+    "nif": "12345678A"
+}
+
+###
+
+PATCH http://localhost:3001/api/user/company
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDI5ODA3MjEsImV4cCI6MTc0MzA2NzEyMX0.f3w4UJHD6sFc98YhgqGNWlaDCcTk9G45n9j4aiNR1qs
+
+{
+    "company": {
+        "name": "My Company",
+        "cif": "B12345678",
+        "address": "123 Business St",
+        "isAutonomous": false
+    }
+}
+
+###
+
+PATCH http://localhost:3001/api/user/company
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDI5ODA3MjEsImV4cCI6MTc0MzA2NzEyMX0.f3w4UJHD6sFc98YhgqGNWlaDCcTk9G45n9j4aiNR1qs
+
+{
+    "company": {
+        "address": "123 Home St",
+        "isAutonomous": true
+    }
+}
+
+###
+
+# Logo
+PATCH http://localhost:3001/api/user/logo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDI5ODA3MjEsImV4cCI6MTc0MzA2NzEyMX0.f3w4UJHD6sFc98YhgqGNWlaDCcTk9G45n9j4aiNR1qs
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="logo"; filename="test-logo.png"
+Content-Type: image/png
+
+< ./test-logo.png
+--boundary--
+
+###
+
+# Devuelve el usuario que buscamos por el jwt
+GET http://localhost:3001/api/user/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDI5ODA3MjEsImV4cCI6MTc0MzA2NzEyMX0.f3w4UJHD6sFc98YhgqGNWlaDCcTk9G45n9j4aiNR1qs
+
+###
+
+# Soft delete
+DELETE http://localhost:3001/api/user/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDMzNDQxNzYsImV4cCI6MTc0MzQzMDU3Nn0.6KQtBEYbblrRF33FITjuhm6e2mUTuim098eDe5uEmoI
+
+###
+
+# Hard delete
+DELETE http://localhost:3001/api/user/profile?soft=false
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDMzNDQxOTUsImV4cCI6MTc0MzQzMDU5NX0.s7j2WAm_4qO7j1kfNznMO6QsTho-2ORIMZXOh0NuD8Q
+
+###
+
+# Restablecimiento de contraseña (envio de codigo por correo)
+POST http://localhost:3001/api/user/password/request-reset
+Content-Type: application/json
+
+{
+    "email": "try@example.com"
+}
+
+###
+
+# Restablecimiento de contraseña
+POST http://localhost:3001/api/user/password/reset
+Content-Type: application/json
+
+{
+    "email": "try@example.com",
+    "code": "389223",
+    "newPassword": "newpassword123"
+}
+
+###
+
+# Invitacion al usuario a la compañia
+POST http://localhost:3001/api/user/invite
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDMzNDQ0MzIsImV4cCI6MTc0MzQzMDgzMn0.78WMB9uSbO_AoDF2kN3ucT_zVzwf_gkMxR4dUTQFMkk
+
+{
+    "email": "guest@example.com"
+}

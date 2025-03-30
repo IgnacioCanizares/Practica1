@@ -6,7 +6,7 @@ const validateJWT = (req, res, next) => {
         req.user = jwt.verify(token, process.env.JWT_SECRET);
         next();
     } catch (error) {
-        return res.status(401).json({ error: 'Invalid token' });
+        return res.status(401).json({ error: 'Token erroneo' });
     }
 };
 
