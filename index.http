@@ -28,14 +28,14 @@ Content-Type: application/json
 
 {
     "email": "try@example.com",
-    "password": "password123"
+    "password": "newpassword123"
 }
 
 ###
 
 PUT http://localhost:3001/api/user/register
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDI5ODA3MjEsImV4cCI6MTc0MzA2NzEyMX0.f3w4UJHD6sFc98YhgqGNWlaDCcTk9G45n9j4aiNR1qs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDM0MDY2NjUsImV4cCI6MTc0MzQ5MzA2NX0.OSTFbnmBq1mslfXZAHdoyrkditHdR4Gk8s7YzRvNzhw
 
 {
     "name": "Ignacio",
@@ -47,7 +47,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxN
 
 PATCH http://localhost:3001/api/user/company
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDI5ODA3MjEsImV4cCI6MTc0MzA2NzEyMX0.f3w4UJHD6sFc98YhgqGNWlaDCcTk9G45n9j4aiNR1qs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDM0MDY2NjUsImV4cCI6MTc0MzQ5MzA2NX0.OSTFbnmBq1mslfXZAHdoyrkditHdR4Gk8s7YzRvNzhw
 
 {
     "company": {
@@ -62,7 +62,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxN
 
 PATCH http://localhost:3001/api/user/company
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDI5ODA3MjEsImV4cCI6MTc0MzA2NzEyMX0.f3w4UJHD6sFc98YhgqGNWlaDCcTk9G45n9j4aiNR1qs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDM0MDY2NjUsImV4cCI6MTc0MzQ5MzA2NX0.OSTFbnmBq1mslfXZAHdoyrkditHdR4Gk8s7YzRvNzhw
 
 {
     "company": {
@@ -75,7 +75,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxN
 
 # Logo
 PATCH http://localhost:3001/api/user/logo
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDI5ODA3MjEsImV4cCI6MTc0MzA2NzEyMX0.f3w4UJHD6sFc98YhgqGNWlaDCcTk9G45n9j4aiNR1qs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDM0MDY2NjUsImV4cCI6MTc0MzQ5MzA2NX0.OSTFbnmBq1mslfXZAHdoyrkditHdR4Gk8s7YzRvNzhw
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary

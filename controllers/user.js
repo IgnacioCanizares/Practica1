@@ -241,7 +241,7 @@ const getUser = async (req, res) => {
 const updateLogo = async (req, res) => {
     try {
         if (!req.file) {
-            return res.status(400).json({ error: 'Fichero no encontrado' });
+            return res.status(400).json({ error: 'Fichero no subido' });
         }
 
         const userId = req.user.userId;
@@ -251,14 +251,8 @@ const updateLogo = async (req, res) => {
             return res.status(404).json({ error: 'Usuario no encontrado' });
         }
 
-        // Lo subimos a pinata
-        const ipfsUrl = await uploadToPinata(
-            req.file.buffer,
-            `logo-${userId}-${Date.now()}`
-        );
-
-        // Actualizamos el logo
-        user.logo = ipfsUrl;
+        // Guardamos el logo en la carpeta uploads
+        user.logo = `/uploads/${req.file.filename}`;
         await user.save();
 
         res.status(200).json({
@@ -374,7 +368,7 @@ const inviteToCompany = async (req, res) => {
         const { email } = req.body;
         const inviterId = req.user.userId;
 
-        // Comprobamos si la persona ya tiene una compania
+        // Comprobamos si la persona ya tiene una compañia
         const inviter = await User.findById(inviterId);
         if (!inviter || !inviter.company) {
             return res.status(400).json({ error: 'Debes tener una compañia asociada' });

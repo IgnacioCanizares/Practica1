@@ -8,7 +8,7 @@ const dbConnect = require('./config/mongo.js');
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static("storage"));
+app.use('/uploads', express.static('uploads'));
 
 app.get('/', (req, res) => {
     res.json({
