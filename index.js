@@ -1,28 +1,18 @@
-const express = require('express');
-const cors = require('cors');
 require('dotenv').config();
+const mongoose = require('mongoose');
+const app = require('./app');
 
-const routers = require('./routes');
-const dbConnect = require('./config/mongo.js');
+const PORT = process.env.PORT || 3001;
+const DB_URI = process.env.DB_URI|| 'mongodb://localhost:27017/practica1';
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use('/uploads', express.static('uploads'));
-
-app.get('/', (req, res) => {
-    res.json({
-        message: 'Directorio raíz',
-        status: 'ok'
+mongoose.connect(DB_URI)
+.then(() => {
+    console.log('MongoDB connected');
+    app.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT}`);
     });
+})
+.catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
 });
-
-app.use('/api', routers);
-
-const port = process.env.PORT || 3001;
-
-app.listen(port, () => {
-    console.log(`Escuchando en el puerto ${port}`);
-});
-
-dbConnect();

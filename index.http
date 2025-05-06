@@ -7,7 +7,7 @@ POST http://localhost:3001/api/user/register
 Content-Type: application/json
 
 {
-    "email": "guest@example.com",
+    "email": "cuadernoproyectos2@gmail.com",
     "password": "password123"
 }
 
@@ -15,7 +15,7 @@ Content-Type: application/json
 
 PUT http://localhost:3001/api/user/validate
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTRjOGZmNTg0Y2Y1YzVkNWZiOTIiLCJpYXQiOjE3NDMzNDQ4NDAsImV4cCI6MTc0MzQzMTI0MH0.Vmz1B447yL56aVLk2-s1Ge8SNe9I2p3r4gKtUskI_M4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDc2NjksImV4cCI6MTc0NjUzNDA2OX0.0EF_MwJtdCT88Cqwll5oOv5-hv6BeaQjMb_tLYsU4tU
 
 {
     "code": "578714"
@@ -23,6 +23,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5N
 
 ###
 
+# Primero, inicia sesión para obtener un token
 POST http://localhost:3001/api/user/login
 Content-Type: application/json
 
@@ -33,105 +34,185 @@ Content-Type: application/json
 
 ###
 
+# Luego usa el token de la respuesta en las siguientes peticiones
+GET http://localhost:3001/api/client
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
 PUT http://localhost:3001/api/user/register
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDM0MDY2NjUsImV4cCI6MTc0MzQ5MzA2NX0.OSTFbnmBq1mslfXZAHdoyrkditHdR4Gk8s7YzRvNzhw
-
-{
-    "name": "Ignacio",
-    "surname": "Canizares",
-    "nif": "12345678A"
-}
-
-###
-
-PATCH http://localhost:3001/api/user/company
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDM0MDY2NjUsImV4cCI6MTc0MzQ5MzA2NX0.OSTFbnmBq1mslfXZAHdoyrkditHdR4Gk8s7YzRvNzhw
-
-{
-    "company": {
-        "name": "My Company",
-        "cif": "B12345678",
-        "address": "123 Business St",
-        "isAutonomous": false
-    }
-}
-
-###
-
-PATCH http://localhost:3001/api/user/company
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDM0MDY2NjUsImV4cCI6MTc0MzQ5MzA2NX0.OSTFbnmBq1mslfXZAHdoyrkditHdR4Gk8s7YzRvNzhw
-
-{
-    "company": {
-        "address": "123 Home St",
-        "isAutonomous": true
-    }
-}
-
-###
-
-# Logo
-PATCH http://localhost:3001/api/user/logo
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDM0MDY2NjUsImV4cCI6MTc0MzQ5MzA2NX0.OSTFbnmBq1mslfXZAHdoyrkditHdR4Gk8s7YzRvNzhw
-Content-Type: multipart/form-data; boundary=boundary
-
---boundary
-Content-Disposition: form-data; name="logo"; filename="test-logo.png"
-Content-Type: image/png
-
-< ./test-logo.png
---boundary--
-
-###
-
-# Devuelve el usuario que buscamos por el jwt
-GET http://localhost:3001/api/user/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDI5ODA3MjEsImV4cCI6MTc0MzA2NzEyMX0.f3w4UJHD6sFc98YhgqGNWlaDCcTk9G45n9j4aiNR1qs
-
-###
-
-# Soft delete
-DELETE http://localhost:3001/api/user/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDMzNDQxNzYsImV4cCI6MTc0MzQzMDU3Nn0.6KQtBEYbblrRF33FITjuhm6e2mUTuim098eDe5uEmoI
-
-###
-
-# Hard delete
-DELETE http://localhost:3001/api/user/profile?soft=false
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2UxNWRjZTQ3MTQ0NWQxNTZmMTRiNGEiLCJpYXQiOjE3NDMzNDQxOTUsImV4cCI6MTc0MzQzMDU5NX0.s7j2WAm_4qO7j1kfNznMO6QsTho-2ORIMZXOh0NuD8Q
-
-###
-
-# Restablecimiento de contraseña (envio de codigo por correo)
-POST http://localhost:3001/api/user/password/request-reset
-Content-Type: application/json
-
-{
-    "email": "try@example.com"
-}
-
-###
-
-# Restablecimiento de contraseña
-POST http://localhost:3001/api/user/password/reset
-Content-Type: application/json
-
-{
-    "email": "try@example.com",
-    "code": "389223",
-    "newPassword": "newpassword123"
-}
-
-###
-
-# Invitacion al usuario a la compañia
-POST http://localhost:3001/api/user/invite
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDMzNDQ0MzIsImV4cCI6MTc0MzQzMDgzMn0.78WMB9uSbO_AoDF2kN3ucT_zVzwf_gkMxR4dUTQFMkk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY1MzQwMDksImV4cCI6MTc0NjYyMDQwOX0.78QeaYHoigGR4kh8xbEPUKmsJs97CyoyzqmG1_-3D2A
 
 {
     "email": "guest@example.com"
 }
+
+###
+
+# Crear un nuevo cliente
+POST http://localhost:3001/api/client
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+Content-Type: application/json
+
+{
+    "name": "Test Client",
+    "email": "client@example.com",
+    "phone": "1234567289"
+}
+
+###
+
+# Obtener todos los clientes
+GET http://localhost:3001/api/client
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Obtener un cliente específico (reemplaza {id} por el ID real del cliente)
+GET http://localhost:3001/api/client/6818b08f18aafccd06be8638
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Actualizar un cliente (reemplaza {id} por el ID real del cliente)
+PUT http://localhost:3001/api/client/6818b08f18aafccd06be8638
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+Content-Type: application/json
+
+{
+    "name": "Updated Client Name 2",
+    "phone": "987654321"
+}
+
+###
+
+# Archivar un cliente (borrado suave) (reemplaza {id} por el ID real del cliente)
+PATCH http://localhost:3001/api/client/6818b08f18aafccd06be8638/archive
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Obtener todos los clientes archivados
+GET http://localhost:3001/api/client/archived
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Restaurar un cliente archivado (reemplaza {id} por el ID real del cliente)
+PATCH http://localhost:3001/api/client/6818b08f18aafccd06be8638/restore
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Eliminar un cliente (borrado definitivo) (reemplaza {id} por el ID real del cliente)
+DELETE http://localhost:3001/api/client/6818affe5d1c2de0985a692b
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Crear un nuevo proyecto
+POST http://localhost:3001/api/project
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+Content-Type: application/json
+
+{
+    "name": "Test Project",
+    "description": "This is a test project",
+    "client": "6818b08f18aafccd06be8638"
+}
+
+###
+
+# Obtener todos los proyectos
+GET http://localhost:3001/api/project
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Obtener un proyecto específico (reemplaza con el ID real después de crear uno)
+GET http://localhost:3001/api/project/6819bcbe4dc517c5358a507e
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Actualizar un proyecto (reemplaza con el ID real del proyecto)
+PUT http://localhost:3001/api/project/6819bcbe4dc517c5358a507e
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+Content-Type: application/json
+
+{
+    "name": "Updated Project Name",
+    "description": "This project has been updated"
+}
+
+###
+
+# Archivar un proyecto (borrado suave)
+PATCH http://localhost:3001/api/project/6819bcbe4dc517c5358a507e/archive
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Obtener todos los proyectos archivados
+GET http://localhost:3001/api/project/archived
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Restaurar un proyecto archivado
+PATCH http://localhost:3001/api/project/6819bcbe4dc517c5358a507e/restore
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Eliminar un proyecto (borrado definitivo)
+DELETE http://localhost:3001/api/project/6819bcbe4dc517c5358a507e
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Crear un nuevo albarán
+POST http://localhost:3001/api/deliverynote
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+Content-Type: application/json
+
+{
+    "projectId": "6819be40ea3c42a987caa8e7",
+    "items": [
+        {
+            "type": "HOURS",
+            "description": "Development work",
+            "quantity": 8,
+            "unitPrice": 50,
+            "person": "John Doe",
+            "date": "2025-05-05T00:00:00.000Z"
+        },
+        {
+            "type": "MATERIAL",
+            "description": "Server hardware",
+            "quantity": 1,
+            "unitPrice": 1200,
+            "reference": "SRV-2023-001"
+        }
+    ],
+    "notes": "Work completed as requested"
+}
+
+###
+
+# Obtener todos los albaranes
+GET http://localhost:3001/api/deliverynote
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Obtener un albarán específico (reemplaza con el ID real)
+GET http://localhost:3001/api/deliverynote/6819be5bea3c42a987caa8f1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA
+
+###
+
+# Generar y descargar PDF (reemplaza con el ID real)
+GET http://localhost:3001/api/deliverynote/pdf/6819be5bea3c42a987caa8f1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U5NTMyZjFhZjMyZTkzYjFlNGRiYmUiLCJpYXQiOjE3NDY0NDgxNDIsImV4cCI6MTc0NjUzNDU0Mn0.4w_tmFU5M7OaIrIR0oZ2uC9dFMZhF2pW-WJ7UyoavfA

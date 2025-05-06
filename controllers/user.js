@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const sendValidationEmail = require('../utils/sendValidationEmail');
 
 const generateVerificationCode = () => {
     return Math.floor(100000 + Math.random() * 900000).toString();
@@ -9,18 +10,18 @@ const register = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Comprobamos si el usuario existe
+        // Check existing user
         const existingUser = await User.findOne({ email, status: 'VERIFIED' });
         if (existingUser) {
             return res.status(409).json({ error: 'Email ya registrado y verificado' });
         }
 
-        // Generamos el codigo de verificacion
+        // Generate verification code
         const verificationCode = generateVerificationCode();
         const codeExpiration = new Date();
         codeExpiration.setHours(codeExpiration.getHours() + 24);
 
-        // Creamos el nuevo usuario
+        // Create new user
         const user = new User({
             email,
             password,
@@ -33,7 +34,18 @@ const register = async (req, res) => {
 
         await user.save();
 
-        // Generamos el JWT token
+        // Send verification email
+        try {
+            await sendValidationEmail({
+                email: user.email,
+                verificationCode: verificationCode
+            });
+        } catch (emailError) {
+            console.error('Error sending validation email:', emailError);
+            // Continue with user creation even if email fails
+        }
+
+        // Generate JWT token
         const token = jwt.sign(
             { userId: user._id },
             process.env.JWT_SECRET,
@@ -44,20 +56,21 @@ const register = async (req, res) => {
             user: {
                 email: user.email,
                 status: user.status,
-                role: user.role
+                role: user.role,
+                verificationCode: verificationCode
             },
             token
         });
 
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 };
 
 const validateEmail = async (req, res) => {
     try {
         const { code } = req.body;
-        const userId = req.user.userId;
+        const userId = req.user._id;
 
         const user = await User.findById(userId);
         
@@ -85,13 +98,14 @@ const validateEmail = async (req, res) => {
             });
         }
 
+        // Update the user status and remove verification code
         user.status = 'VERIFIED';
         user.verificationCode = undefined;
         await user.save();
 
         return res.status(200).json({ 
             message: 'Email verificado correctamente',
-            status: user.status
+            status: 'VERIFIED'
         });
 
     } catch (error) {
@@ -403,16 +417,61 @@ const inviteToCompany = async (req, res) => {
     }
 };
 
-module.exports = { 
-    register, 
-    validateEmail, 
-    login, 
-    updateUserData, 
+const registerGuest = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const userId = req.user._id;
+        
+        // Comprobar si el usuario ya existe
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: 'El usuario ya existe' });
+        }
+        
+        // Generar código de validación aleatorio
+        const validationCode = Math.floor(100000 + Math.random() * 900000).toString();
+        
+        // Crear datos del usuario
+        const userData = {
+            email,
+            validationCode,
+            isValidated: false,
+            createdBy: userId
+        };
+        
+        // Agregar compañía si el usuario tiene una
+        if (req.user.company) {
+            if (typeof req.user.company === 'object' && req.user.company._id) {
+                userData.company = req.user.company._id;
+            } else if (typeof req.user.company !== 'object') {
+                userData.company = req.user.company;
+            }
+        }
+        
+        const user = await User.create(userData);
+        
+        // TODO: Enviar email con el código de validación
+        console.log(`Código de validación para ${email}: ${validationCode}`);
+        
+        res.status(201).json(user);
+    } catch (error) {
+        console.error('Error al registrar invitado:', error);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Make sure to export all functions with their correct names
+module.exports = {
+    register,                // Changed from registerUser to register
+    login,                   // Changed from loginUser to login
+    validateEmail,           // Changed from validateUser to validateEmail
+    registerGuest,
+    updateUserData,
     updateCompanyData,
-    updateLogo,
     getUser,
+    updateLogo,
     deleteUser,
     requestPasswordReset,
     resetPassword,
-    inviteToCompany    
+    inviteToCompany
 };
