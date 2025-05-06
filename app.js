@@ -5,6 +5,10 @@ require('dotenv').config();
 
 const app = express();
 
+const { swaggerUi, specs } = require('./config/swagger');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
 // Middleware
 app.use(cors());
 app.use(express.json());
